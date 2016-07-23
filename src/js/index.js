@@ -1,12 +1,17 @@
 $(function(){
 	var $header_left = $(".header_left");//头部左边ul
+	var $nav = $(".nav");//导航栏
 	var $nav_left = $(".nav_left");//导航栏左边ul
 	var $phone_app = $(".phone_app");//头部手机二维码
 	var $nav_second_menu = $(".nav_second_menu");//导航栏二级菜单
 	var $menu_con_imgBox = $(".menu_con_imgBox");//产品图片容器
+	var $pro_menu_right = $(".pro_menu_right");//轮播图的容器
 	var $pro_menu_left = $(".pro_menu_left");//活动的容器
 	var $week_activities = $(".week_activities");//本周活动
 	var $week_nav = $(".week_nav");//星期的导航
+	var $click_toTop = $(".click_toTop");//固定在页面右边的回到顶部
+	var $overcover = $(".overcover")//模块“即将推出活动”的遮罩层
+	var $the_activities = $(".the_activities")//模块“即将推出活动”的活动容器
 
 	$header_left.find("li").first().find("a").css({"color":"#f00"});
 	$nav_left.find("li").first().find("a").css({"color":"#f00"});
@@ -19,6 +24,15 @@ $(function(){
 	},function(){
 		$(this).next("div").hide();
 	});
+
+	//滚动距离超过120像素时导航栏固定在页面顶部
+	$(window).on("scroll",function(){
+		if($(this).scrollTop()>=120){
+			$nav.addClass("nav_scroll");//此类给导航栏设置了定位fixed
+		}else{
+			$nav.removeClass("nav_scroll");
+		}
+	})
 
 	//让导航栏左边的ul中的a在hover的时候显示隐藏的二级菜单
 	var $nav_left_a = $nav_left.find("a");
@@ -35,6 +49,76 @@ $(function(){
 		$(this).css({"display":"block"});
 	},function(){
 		$(this).css({"display":"none"});
+	});
+
+	//产品模块轮播图
+	var index = -320;
+	var $zuheImg = $pro_menu_right.find("img");
+	var $choose_span = $(".choose_span").find("span");
+
+	var timer = setInterval(focus,1000);
+
+	function focus(){	
+        if(index == -1280){
+			$zuheImg.css({"left":-320});
+			index = -320;
+		}
+		if(index == 0){
+			$zuheImg.css({"left":-960});
+			index = -960;
+		}
+		$choose_span.each(function(idx){
+    		if(index==-320 && idx==1){
+    			$(this).css({"background":"#f00"}).siblings().css({"background":"#f1ebee"});
+    		}else if(index==-640 && idx==2){
+    			$(this).css({"background":"#f00"}).siblings().css({"background":"#f1ebee"});
+    		}else if(index==-960 && idx==0){
+    			$(this).css({"background":"#f00"}).siblings().css({"background":"#f1ebee"});
+    		}
+    	});
+    	index = index - 320;
+        show();
+    }
+
+    function show(){
+    	$zuheImg.animate({"left":index});
+
+    }
+
+    var $oButtons = $pro_menu_right.find("a");
+    $oButtons.each(function(idx,ele){
+        $(this).click(function(e){ 
+            if($(this).hasClass('prev')){console.log("a");
+                index = index + 320;
+            }else{
+                index = index - 320;
+            }
+            show();
+            e.preventDefault();
+        });
+    });
+
+    //点击span切换到对应的图片
+	$choose_span.each(function(idx){
+		$(this).on("click",function(e){
+			$(this).css({"background":"#f00"}).siblings().css({"background":"#f1ebee"});
+			if(idx==0){
+				index = -320;
+				show();
+			}else if(idx==1){
+				index = -640;
+				show();
+			}else{
+				index = -960;
+				show();
+			}
+			e.preventDefault();
+		});
+	});
+
+	var $chooseBox = $(".choose_span");
+	$chooseBox.on("click",function(e){
+		e.preventDefault();
 	});
 
 	//当鼠标放在产品图片上的时候放大图片，显示遮罩层
@@ -86,5 +170,31 @@ $(function(){
 		})
 	});
 
-	
+	//滚动窗口时当滚动距离超过300像素显示
+	$(window).on("scroll",function(){//console.log($(this).scrollTop());
+		if($(this).scrollTop() >= 400){
+			$click_toTop.show();
+		}else{
+			$click_toTop.hide();
+		}
+	});
+
+	//点击span时回到页面顶部
+	var $click_toTop_span = $click_toTop.find("span");
+	$click_toTop_span.on("click",function(){console.log("1");
+		$("body").animate({"scrollTop":0});
+	});
+
+	//模块“即将推出活动”的遮罩层显示和隐藏
+	$the_activities.hover(function(){
+		$(this).find(".overcover").show();
+	},function(){
+		$(this).find(".overcover").hide();
+	});
+
+	$overcover.hover(function(){
+		$(this).show();
+	},function(){
+		$(this).hide();
+	});
 });
