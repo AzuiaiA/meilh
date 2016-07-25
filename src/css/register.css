@@ -1,0 +1,106 @@
+/* CSS Document */
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{margin:0;padding:0;}
+fieldset,img{border:0;}
+img{display:block;}
+ul,ol,li{list-style:none;} 
+body{font:12px "微软雅黑";}
+a{color:#666;text-decoration:none;}
+h1,h2,h3,h4,h5,h6{font-weight:100;}
+
+/*---------------------------login--------------------------------------*/
+.login_all{height:auto;overflow:hidden;background-color:#dddddb;background-image:url(img/photo_03.png);background-repeat:repeat-x;}
+.login_bg{margin:0 auto;width:1000px;height:auto;overflow:hidden;background:url("img/20160407180825169.png") no-repeat;}
+
+/*---------------------------brand------------------------------------*/
+.brand{height:90px;}
+.brand_center{width:340px;height:90px;margin:0 auto;}
+.brand_con{width:1041px;height:90px;margin:0 auto;}
+.brand_con a{width:187px;height:90px;float:left;background:url(img/base_z.png);}
+.brand_con a{background-position:-853px -295px;}
+.brand_con p{font-weight:600;font-size:14px;width:135px;height:40px;margin-left:18px;float:left;padding-top:50px;color:#7b7b7b;}
+
+
+/*---------------------------content------------------------------------*/
+.content{height:650px;overflow:hidden;}
+.content_con{width:950px;height:650px;overflow:hidden;margin-right:50px;}
+
+/*---------------------------login_main------------------------------------*/
+.login_main{width:350px;height:auto;overflow:hidden;float:right;margin:60px 150px 0 0;}
+.login_title{width:260px;height:auto;margin-left:90px;padding-bottom:10px;overflow:hidden;}
+.login_title h2{float:left;font-weight:600;font-size:16px;}
+.login_title span{float:right;margin-top:2px;}
+.login_title span a{font-size:14px;color:#f00;text-decoration:underline;}
+
+/*---------------------------write_area------------------------------------*/
+.write_area{width:350px;height:auto;overflow:hidden;}
+.write_area li{width:350px;height:30px;float:left;margin-bottom:10px;}
+.write_area li span{width:75px;height:30px;line-height:30px;float:left;margin-right:15px;text-align:right;}
+.write_area li input{background:transparent;padding-left:5px;width:253px;line-height:26px;height:26px;float:left;border:1px solid #999;color:#999;}
+.write_area .iden_code_write{width:108px;color:#999;}
+.iden_code{float:right;background:#f00;width:135px;height:30px;}
+.login_btn{width:260px;height:35px;margin-left:90px;overflow:hidden;}
+.login_btn a{width:260px;height:35px;display:block;background:#db2725;color:#fff;text-align:center;line-height:35px;font-size:14px;}
+
+/*---------------------------auto_login------------------------------------*/
+.auto_login{width:260px;height:auto;overflow:hidden;padding-left:90px;margin-top:10px;}
+.auto_login p{float:left;}
+.auto_login p span{width:10px;height:10px;margin-right:2px;margin-top:2px;float:left;border:1px solid #000;}
+.auto_login a{float:right;text-decoration:underline;color:#000;text-align:bottom;}
+.auto_login a:hover{color:#db2725;}
+
+/*---------------------------partner_comp------------------------------------*/
+.partner_comp{width:350px;height:auto;overflow:hidden;margin-top:20px;padding-bottom:25px;border-bottom:1px solid #ddd;}
+.partner_comp h4{width:75px;float:left;margin-right:15px;text-align:right;}
+.weibo_icon{width:20px;height:17px;float:left;background:url(img/icon_weibo.png) no-repeat;margin-right:25px;}
+.zhifubao_icon{width:44px;height:17px;float:left;background:url(img/icon_zhifubao.png) no-repeat;margin-right:25px;}
+
+/*---------------------------erweima------------------------------------*/
+.erweima{width:300px;height:auto;overflow:hidden;padding-top:25px;padding-left:50px;}
+.erweima img{float:left;margin-right:10px;}
+.erweima p{float:left;width:130px;margin-top:16px;}
+
+/*---------------------------footer------------------------------------*/
+.footer{height:235px;}
+.footer_con{height:205px;width:1041px;margin:0 auto;margin-top:0px;padding-top:30px;}
+.footer_top{margin-left:20px;height:60px;}
+.footer_top li{width:167px;height:60px;float:left;}
+.footer_top a{color:#000;width:167px;height:60px;line-height:100px;float:left;border-right:1px solid #000;text-align:center;}
+
+.heart a{background:url(img/base_z.png)}
+.car a{background:url(img/base_z.png)}
+.calendar a{background:url(img/base_z.png)}
+.discount a{background:url(img/base_z.png)}
+.clock a{background:url(img/base_z.png)}
+.phone a{background:url(img/base_z.png)}
+
+.heart a{background-position:-153px -146px}
+.car a{background-position:-543px -104px}
+.calendar a{background-position:-150px -382px}
+.discount a{background-position:-419px 5px}
+.clock a{background-position:-301px -346px}
+.phone a{background-position:-301px -112px}
+
+.heart a:hover{background-position:-153px -264px}
+.car a:hover{background-position:-543px 7px}
+.calendar a:hover{background-position:-301px -229px}
+.discount a:hover{background-position:-419px -107px}
+.clock a:hover{background-position:-301px -459px}
+.phone a:hover{background-position:-301px 5px}
+
+.footer_mid{margin-left:225px;height:56px;}
+.footer_mid{line-height:56px;}
+.footer_mid a{margin-left:29px;height:56px;float:left;color:#000;}
+.footer_mid a:hover{color:#ce3b0e;}
+
+.footer_con p{padding-left:255px}
+.footer_con p span{float:left;margin-left:30px;}
+
+.footer_con i{float:left;margin-left:395px;height:40px;margin-top:20px;}
+.footer_con i a{float:left;margin-left:30px;}
+
+
+
+
+
+
+
