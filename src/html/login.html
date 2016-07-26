@@ -15,7 +15,7 @@
 			<div class="brand">
 				<div class="brand_con">
 					<div class="brand_center">
-						<a href=""><img src=""></a>
+						<a href="../index.html"><img src=""></a>
 						<p>全球奢品 官方授权</p>
 					</div>
 				</div>
@@ -26,14 +26,29 @@
 					<div class="login_main">
 						<div class="login_title">
 							<h2>会员登录</h2>
-							<span>没有账号?<a href="">免费注册</a></span>
+							<span>没有账号?<a href="register.html">免费注册</a></span>
 						</div>
 						<div class="write_area">
 							<form>
 								<ul>
-									<li><span>账户名：</span><input type="text"></li>
-									<li><span>密码：</span><input type="text"></li>
-									<li><span>验证码：</span><input class="iden_code_write" type="text"><div class="iden_code"></div></li>
+									<li><span>账户名：</span>
+										<input id="account" type="text" placeholder="已验证手机号/邮箱">
+									</li>
+									<p id="accError" class="error"></p>
+									<li><span>密码：</span>
+										<input id="password" type="password">
+									</li>
+									<p id="passError" class="error"></p>
+									<li><span>验证码：</span>
+										<input id="autoIdenCode" class="iden_code_write" type="text">
+										<div class="iden_code">
+											<img src="">
+											<img src="">
+											<img src="">
+											<img src="">
+										</div>
+									</li>
+									<p id="idenCodeError" class="error"></p>
 								</ul>
 							</form>
 							<div class="login_btn">

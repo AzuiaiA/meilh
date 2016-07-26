@@ -1,0 +1,80 @@
+/* CSS Document */
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{margin:0;padding:0;}
+fieldset,img{border:0;}
+img{display:block;}
+ul,ol,li{list-style:none;} 
+body{font:12px "微软雅黑";}
+a{color:#666;text-decoration:none;}
+h1,h2,h3,h4,h5,h6{font-weight:100;}
+
+
+
+/*------------------------------pro_list---------------------------------*/
+.pro_list{height:auto;overflow:hidden;}
+.pro_list_con{height:auto;width:1000px;margin:0 auto;}
+.horizontal_nav{width:1000px;height:16px;padding:18px 0;}
+
+/*------------------------------pro_list_title---------------------------------*/
+.pro_list_title{width:1000px;height:59px;border-top:1px solid #e7e7e7;}
+.pro_list_title p{float:left;font-size:20px;line-height:59px;margin-right:25px;}
+.pro_list_title i{font-style:normal;float:left;font-size:20px;line-height:59px;color:#f00;}
+.pro_list_title b{font-weight:none;float:left;font-size:14px;line-height:59px;color:#f00;}
+.addCollect{float:right;line-height:59px;cursor:pointer;}
+.addCollect span{font-weight:700;font-size:20px;}
+
+
+/*------------------------------pro_list_intr---------------------------------*/
+.pro_list_intr{width:1000px;height:auto;overflow:hidden;padding-top:5px;padding-left:5px;margin-bottom:20px;}
+.pro_list_intr li{width:995px;background:#f0f0f0;}
+.list_introduce{padding:10px;height:auto;overflow:hidden;background:#fff;border:1px solid #e7e7e7;position:relative;left:-5px;bottom:5px;}
+.pro_adven{width:945px;height:auto;overflow:hidden;padding-left:28px;background:url(img/icon_gift.gif) no-repeat left center;margin-bottom:20px;}
+.list_introduce h3{width:973px;height:19px;margin-bottom:5px;padding-top:20px;border-top:1px solid #e7e7e7;}
+.list_introduce p{display:inline;width:973px;height:auto;overflow:hidden;letter-spacing:0.5px;}
+.list_introduce a{color:#000;text-decoration:underline;}
+.list_introduce a:hover{color:#f00;}
+
+/*------------------------------pro_attr_nav---------------------------------*/
+.pro_attr_nav{width:1000px;height:auto;overflow:hidden;margin-bottom:20px;border:1px solid #e7e7e7;}
+.choose_type{width:981px;height:auto;overflow:hidden;padding:18px 0 10px 17px;}
+.choose_left{width:75px;float:left;text-align:center;}
+.choose_right{width:825px;height:auto;float:left;overflow:hidden;}
+.choose_right li{width:165px;height:24px;float:left;cursor:pointer;}
+.choose_right li:hover{color:#f00;}
+.no_choose{float:left;width:19px;height:24px;background:url(img/filter_check.gif) no-repeat 0 0;}
+.choose_right i{line-height:24px;font-style:normal;float:left;height:24px;}
+
+/*------------------------------pro_type_container---------------------------------*/
+.pro_type_container{width:1000px;height:30px;}
+.turn_left{float:right;width:28px;height:28px;border:1px solid #e7e7e7;margin-right:5px;background:url(img/pager.gif) no-repeat -40px 0px}
+.turn_right{float:right;width:28px;height:28px;border:1px solid #e7e7e7;margin-right:5px;background:url(img/pager.gif) no-repeat -40px -40px}
+.pro_type_container i{float:right;margin-right:12px;font-style:normal;line-height:30px;}
+.pro_type_container p{float:right;margin-right:12px;font-style:normal;line-height:30px;}
+
+
+/*------------------------------pro_pic_list---------------------------------*/
+.pro_pic_list{width:1000px;height:auto;overflow:hidden;}
+.every_pro{width:235px;height:auto;overflow:hidden;float:left;margin-right:20px;margin-bottom:20px;position:relative;}
+.pro_img{width:235px;height:313px;position:relative;}
+.pro_img{width:235px;height:313px;display:inline-block;}
+.pro_txt{width:215px;height:79;padding:5px 10px 0 10px;overflow:hidden;}
+.pro_txt p{width:215px;letter-spacing:0.5px;}
+.pro_txt a{color:#000;}
+.pro_txt p span{color:#f00;font-size:14px;}
+.pro_txt p i{color:#000;font-size:12px;text-decoration:line-through;font-style:normal;}
+
+/*------------------------------pro_bottom_nav---------------------------------*/
+.pro_bottom_nav{text-align:center;width:1000px;height:24px;margin-top:67px;padding-bottom:40px;}
+.nav_container{margin:0 auto;width:auto;height:24px;}
+.prev_page,.next_page{display:inline-block;width:52px;height:22px;margin-right:5px;border:1px solid #e7e7e7;line-height:22px;text-align:center;}
+.nav_container i{font-style:normal;}
+#page_num{width:52px;height:22px;text-align:center;margin-right:4px;}
+.nav_container b,.nav_container strong{font-weight:100;}
+#confirm{background:#000;color:#fff;border:1px solid #000;width:42px;height:24px;}
+
+
+
+
+
+
+
+

@@ -24,10 +24,13 @@ $(function(){
 	var $accError = $("#accError");//账号输入错误的提示
 	var $password = $("#password");//密码输入框
 	var $passError = $("#passError");//密码输入错误的提示
+	var $repassword = $("#repassword");//再输入密码输入框
+	var $repassError = $("#repassError");//再输入密码输入错误的提示
 	var $iden_code = $(".iden_code");//验证码
 	var $autoIdenCode = $("#autoIdenCode");//验证码的输入框
 	var $idenCodeError = $("#idenCodeError");//再输入密码输入错误的提示
-	var $auto_login = $(".auto_login");//自动登录框
+	var $login_btn = $(".login_btn").find("a");//立即注册按钮
+	var $send_email = $(".send_email");//发送邮件框
 
 	//判断账号是否输入正确
 	function checkAccount(){
@@ -62,6 +65,24 @@ $(function(){
 		checkPassword();
 	});
 
+	//判断再输入密码是否输入正确
+	function checkRePassword(){
+		var $passwordVal = $password.val();
+		var $repasswordVal = $repassword.val();
+		if($passwordVal == $repasswordVal){
+			$repassError.hide();
+			return true;
+		}else{
+			$repassError.html("两次密码输入不一致");
+			$repassError.show();
+			return false;
+		}
+	}
+
+	$repassword.on("blur",function(){
+		checkRePassword();
+	});
+
 	
 	var correctCode = "";//用于记录产生的4位验证码
 	var $idenImg = $iden_code.find("img");
@@ -94,26 +115,25 @@ $(function(){
 		checkIdenCode();
 	});
 
-
-	//点击邮件发送框背景变黑
-	var clickCount = 0;
-	var $auto_login_span = $auto_login.find("span");
-	$auto_login.on("click",function(){
-		if(clickCount){
-			clickCount = 0;
-			$auto_login_span.css("background","#fff");
-		}else{
-			clickCount = 1;
-			$auto_login_span.css("background","#000");
-		}
-	});
-
-	/*//验证是否全部通过
+	//验证是否全部通过
 	$login_btn.on("click",function(e){
 		if(!(checkAccount()&&checkPassword()&&checkRePassword()&&checkIdenCode())){
 			return false;
 		}else{
 			alert("注册成功");
 		}
-	});*/
+	});
+
+	//点击邮件发送框背景变黑
+	var clickCount = 0;
+	var $send_email_span = $send_email.find("span");
+	$send_email.on("click",function(){
+		if(clickCount){
+			clickCount = 0;
+			$send_email_span.css("background","#fff");
+		}else{
+			clickCount = 1;
+			$send_email_span.css("background","#000");
+		}
+	});
 });

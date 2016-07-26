@@ -36,15 +36,20 @@ h1,h2,h3,h4,h5,h6{font-weight:100;}
 .write_area li{width:350px;height:30px;float:left;margin-bottom:10px;}
 .write_area li span{width:75px;height:30px;line-height:30px;float:left;margin-right:15px;text-align:right;}
 .write_area li input{background:transparent;padding-left:5px;width:253px;line-height:26px;height:26px;float:left;border:1px solid #999;color:#999;}
-.write_area .iden_code_write{width:108px;color:#999;}
-.iden_code{float:right;background:#f00;width:135px;height:30px;}
+.write_area .iden_code_write{width:80px;color:#999;}
+.meg_iden_code{float:right;width:133px;height:28px;border:1px solid #000;background:#fff;}
+.meg_iden_code a{display:block;width:133px;height:28px;line-height:28px;text-align:center;}
+.iden_code{float:right;width:163px;height:30px;}
+.iden_code img{height:30px;display:inline-block;}
 .login_btn{width:260px;height:35px;margin-left:90px;overflow:hidden;}
 .login_btn a{width:260px;height:35px;display:block;background:#db2725;color:#fff;text-align:center;line-height:35px;font-size:14px;}
+.error{color:#f00;width:260px;height:auto;overflow:hidden;display:none;padding-left:90px;margin-bottom:3px;}
+
 
 /*---------------------------auto_login------------------------------------*/
 .auto_login{width:260px;height:auto;overflow:hidden;padding-left:90px;margin-top:10px;}
 .auto_login p{float:left;}
-.auto_login p span{width:10px;height:10px;margin-right:2px;margin-top:2px;float:left;border:1px solid #000;}
+.auto_login p span{width:10px;height:10px;margin-right:2px;margin-top:2px;float:left;border:1px solid #666;}
 .auto_login a{float:right;text-decoration:underline;color:#000;text-align:bottom;}
 .auto_login a:hover{color:#db2725;}
 
