@@ -4,13 +4,19 @@ $(function(){
 	var $nav_left = $(".nav_left");//导航栏左边ul
 	var $phone_app = $(".phone_app");//头部手机二维码
 	var $nav_second_menu = $(".nav_second_menu");//导航栏二级菜单
-	var $imgBox = $(".imgBox");//商品大图
-	var $overolay = $(".overolay");//大图的遮罩层
-	var $small_imgBox = $(".small_imgBox");//商品小图
-	var $show_big = $(".show_big");//显示大图
-	var $bigerGlass = $(".bigerGlass");//放大镜
-	var $count_choose = $(".count_choose");//商品数量
-	
+
+	var $choose_right = $(".choose_right");//复选框ul
+	var $pro_pic = $(".pro_pic");//商品列表
+	var $pro_img = $(".pro_img");//大图容器
+	var $hover_img = $(".hover_img");//小图容器
+	var $grade = $("#grade");//分数显示页码
+	var $turn_left = $(".turn_left");//商品列表上一页按钮
+	var $turn_right = $(".turn_right");//商品列表下一页按钮
+	var $prev_page = $(".prev_page")//底部导航栏的上一页按钮
+	var $next_page = $(".next_page")//底部导航栏的下一页按钮
+	var $page_num = $("#page_num")//底部导航栏的输入框
+	var $confirm = $("#confirm");//底部导航栏的确定按钮
+
 	$header_left.find("li").first().find("a").css({"color":"#f00"});
 	$nav_left.find("li").first().find("a").css({"color":"#f00"});
 
@@ -49,108 +55,210 @@ $(function(){
 		$(this).css({"display":"none"});
 	});
 
-	//商品放大镜
-	$overolay.on("mouseenter",function(e){
-		var $nowImgSrc = $overolay.next("img").attr("src");
-		var $Img = $("<img/>");
-		var pos = {left:e.offsetX-100,top:e.offsetY-100}
-		if(pos.left<0){
-			pos.left = 0;
-		}
-		if(pos.left>280){
-			pos.left = 280;
-		}
-		if(pos.top<0){
-			pos.top = 0;
-		}
-		if(pos.top>440){
-			pos.top = 440;
-		}
-		console.log(pos.left,pos.top,e.offsetX,e.offsetY);
-		$bigerGlass.css({
-			"top":pos.top,
-			"left":pos.left
+	//封装：删除未选的种类，添加选择的种类
+	var $select_attr = $(".select_attr");
+	var $selected_attr = $(".selected_attr");//已选的种类
+	var li_count = 0;
+	function chooseType(){
+		$selected_attr.empty();
+		li_count = 0;
+		$choose_right_li.each(function(){
+			if($(this).find("span").hasClass("yes_choose")){
+				var txt = $(this).find("i").html();
+				$("<li/>").addClass("selected_attr_li").html("种类："+txt).appendTo($selected_attr);
+				li_count++;
+			}
 		});
-		$bigerGlass.show();
-		$show_big.show();
-		$Img.attr("src",$nowImgSrc);
-		$Img.css({
-			"width":960,
-			"height":1280
-		});
-		$Img.appendTo($show_big);
+		if(li_count==0){
+			$select_attr.hide();
+		}else{
+			$select_attr.show();
+		}
+	}
 
+	//点击已添加的种类可以进行删除种类
+	//因为li是动态生成的，不能确定li是否存在，所以使用了事件委托
+	$selected_attr.on("click","li",function(){
+		var attrTxt = $(this).html();
+		$choose_right_li.each(function(){//找到可选属性中与点击的li内容匹配的删除高亮
+			var cLi= $(this).find("i").html();
+			if(attrTxt == ("种类："+cLi)){
+				$(this).find("span").removeClass("yes_choose");
+				$(this).find("span").addClass("no_choose");
+			}
+		});
+		$(this).remove();//删除已添加的li
+		chooseType();//刷新可选择的复选框
 	});
 
-	$overolay.on("mousemove",function(e){
-		var pos = {left:e.offsetX-100,top:e.offsetY-100};
-		var imgPos = {left:e.offsetX,top:e.offsetY};
-		var $img = $(".show_big").find("img");
-		if(pos.left<0){
-			pos.left = 0;
-		}
-		if(pos.left>280){
-			pos.left = 280
-		}
-		if(pos.top<0){
-			pos.top = 0;
-		}
-		if(pos.top>440){
-			pos.top = 440
-		}
-		$bigerGlass.css({
-			"top":pos.top,
-			"left":pos.left
+	//点击复选框让框高亮
+	var $choose_right_li = $choose_right.find("li");
+	$choose_right_li.on("click",function(){
+		if($(this).find("span").hasClass("no_choose")){
+			var txt = $(this).find("i").html();
+			$(this).find("span").removeClass("no_choose");
+			$(this).find("span").addClass("yes_choose");
+			chooseType();
+		}else{
+			$(this).find("span").removeClass("yes_choose");
+			$(this).find("span").addClass("no_choose");
+			chooseType();
+		}	
+	});
+
+
+	//按照页数生成页码按钮
+	var page = 3;//这里假定页码为3，实际中取服务器页码数
+	var pro_total = 0;//商品总数
+	var $productTotal = $("#productTotal");
+	var $proCount = $(".pro_pic").find(".every_pro");//全部商品
+	var $pageTotal = $("#pageTotal");//总页数
+	$pageTotal.html(page);
+	for(var i=0;i<page;i++){
+		if(i==0){
+			var newSpan = $("<span/>").addClass("page_span high_light").html(i+1);
+			newSpan.insertBefore($next_page);
+		}else{
+			var newSpan = $("<span/>").addClass("page_span").html(i+1);
+			newSpan.insertBefore($next_page);
+		}		
+	}
+	var $page_span = $(".page_span");
+
+	//统计商品总数
+	$proCount.each(function(){
+		pro_total++;
+	});
+	$productTotal.html(pro_total);
+
+	//hover大图显示小图容器
+	$pro_img.hover(function(){
+		$(this).prev(".hover_img").show();
+	},function(){
+		$(this).prev(".hover_img").hide();
+	});
+
+	$hover_img.hover(function(){
+		$(this).show();
+	},function(){
+		$(this).hide();
+	});
+
+	//hover小图切换大图
+	var $hover_img_span = $hover_img.find("span");//装小图的span
+	$hover_img_span.on("mouseenter",function(){
+		var spanImgSrc = $(this).find("img").attr("src");
+		var newSrc = spanImgSrc.replace("a.jpg",".jpg");
+		$(this).parent().next(".pro_img").find("img").attr("src",newSrc);
+	});
+
+	//商品列表分页显示
+	//封装：按照传入的页码改变页面
+	function changePage(index){
+		$pro_pic_list.each(function(idx){
+			if(idx == (index-1)){
+				$(this).show().siblings().hide();
+				return false;
+			}
 		});
-		$img.css({
-			"position":"absolute",
-			"top":-imgPos.top,
-			"left":-imgPos.left
+	}
+
+	//封装：按照传入的页码改变分数显示的页码
+	function changeGrade(index){
+		$grade.html(index+"/"+page);
+	}
+
+	//封装：按照传入的页码改变底部导航的span高亮
+	function changeHighLight(index){
+		$page_span.each(function(idx){
+			if(idx == (index-1)){
+				$(this).addClass("high_light").siblings().removeClass("high_light");
+				return false;
+			}
 		});
-	});
+	}
 
-	$overolay.on("mouseleave",function(){
-		$show_big.find("img").remove();
-		$show_big.hide();
-		$bigerGlass.hide();
-	});
+	//封装：按照传入的页码改变底部导航的输入框
+	function changeBotInput(index){
+		$page_num.val(index);
+	}
 
-	//点击商品小图切换商品大图
-	var $small_li = $small_imgBox.find("li");
-	$small_li.on("click",function(e){
-		var $newBigImgSrc = $(this).find("img").attr("src");
-		console.log($newBigImgSrc);
-		$newBigImgSrc = $newBigImgSrc.replace("a.jpg",".jpg");
-		$imgBox.children("img").attr("src",$newBigImgSrc);
-		return false;
-	});
+	//第一页默认在页面加载时就显示
+	var pageNow = 1;//代表当前在第几页(开始为第一页)
+	var $pro_pic_list = $pro_pic.find(".pro_pic_list");
+	$pro_pic_list.hide();
+	$pro_pic_list.first().show();
 
-	//点击增加商品的数量
-	var $count_num = $count_choose.find(".count_num");
-	var $sub_span = $count_num.prev("span");
-	var $add_span = $count_num.next("span");
-	var $tip_i = $count_choose.find("i");
-	var count = $count_num.html();
-	$sub_span.on("click",function(){
-		count--;
-		if(count<1){
-			count = 1;
+	//点击上一页进行翻页,改变与页码有关的位置
+	$prev_page.on("click",function(){
+		if(pageNow == 1){
 			return false;
 		}else{
-			$count_num.html(count);
+			pageNow--;
+			changePage(pageNow);
+			changeHighLight(pageNow);
+			changeBotInput(pageNow);
+			changeGrade(pageNow);
 		}
 	});
-	$add_span.on("click",function(){
-		count++;
-		if(count>5){
-			count = 5;
-			$tip_i.show();
-			setTimeout(function(){
-				$tip_i.hide();
-			},3000);
+
+	//点击下一页进行翻页,改变与页码有关的位置
+	$next_page.on("click",function(){
+		if(pageNow == page){
 			return false;
 		}else{
-			$count_num.html(count);
+			pageNow++;
+			changePage(pageNow);
+			changeHighLight(pageNow);
+			changeBotInput(pageNow);
+			changeGrade(pageNow);
 		}
-	})
+	});
+
+	//点击上一页进行翻页,改变与页码有关的位置
+	$turn_left.on("click",function(){
+		if(pageNow == 1){
+			return false;
+		}else{
+			pageNow--;
+			changePage(pageNow);
+			changeHighLight(pageNow);
+			changeBotInput(pageNow);
+			changeGrade(pageNow);
+		}
+	});
+
+	//点击下一页进行翻页,改变与页码有关的位置
+	$turn_right.on("click",function(){
+		if(pageNow == page){
+			return false;
+		}else{
+			pageNow++;
+			changePage(pageNow);
+			changeHighLight(pageNow);
+			changeBotInput(pageNow);
+			changeGrade(pageNow);
+		}
+	});
+
+	//点击底部导航栏的span切换到对应的页面
+	$page_span.each(function(){
+		$(this).on("click",function(){
+			var i = $(this).html();
+			changePage(i);
+			changeHighLight(i);
+			changeBotInput(i);
+			changeGrade(i);
+		});
+	});
+
+	//点击底部导航栏的确定按钮切换到输入框的页面
+	$confirm.on("click",function(){
+		var inputPage = $page_num.val();
+		changePage(inputPage);
+		changeHighLight(inputPage);
+		changeBotInput(inputPage);
+		changeGrade(inputPage);
+	});
+
 });
