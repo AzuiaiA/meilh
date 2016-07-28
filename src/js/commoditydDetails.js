@@ -10,9 +10,57 @@ $(function(){
 	var $show_big = $(".show_big");//显示大图
 	var $bigerGlass = $(".bigerGlass");//放大镜
 	var $count_choose = $(".count_choose");//商品数量
+	var $pro_button = $(".pro_button").find("a");//加入购物车按钮
 	
 	$header_left.find("li").first().find("a").css({"color":"#f00"});
 	$nav_left.find("li").first().find("a").css({"color":"#f00"});
+
+
+	var $nav_right = $(".nav_right");
+	var $shopping_bag = $nav_right.find(".shopping_bag");
+	var shopping_bag_val = $shopping_bag.find("a").html();//购物车商品的件数
+
+	var $price_total = $(".price_total").find("a");
+	var price_total_val = $price_total.html();//购物车商品的总价
+
+	//检测用户是否登录
+	var $logined = $(".logined");
+	var $login_li = $(".login_li");
+	var cookie = document.cookie;
+	var changeObj;
+	//var reg = new RegExp(account+"\\*username=\\{.+\\}");
+	var reg = new RegExp("\\*username=\\{.+\\}","g");
+	var accountArr = cookie.match(reg);
+	if(accountArr!=null){
+		for(var i=0;i<accountArr.length;i++){
+			var cutI = accountArr[i].indexOf("=");
+			var newStr = accountArr[i].substring(cutI+1);
+			changeObj = JSON.parse(newStr);
+			if(changeObj.ynlogin==1){
+				$logined.html("你好"+changeObj.username+",退出");
+				$logined.show();
+				$login_li.hide();
+				break;
+			}
+		}
+		//刷新导航栏的购物车信息
+		if(changeObj.goods!=null){
+		//改变导航栏的购物车的数值
+			$shopping_bag.find("a").html(changeObj.goods.gCount);
+
+			$price_total.html("￥"+changeObj.goods.gTotal);
+		}
+	}
+
+	//点击退出用户登录
+	$logined.on("click",function(){
+		changeObj.ynlogin = 0;
+		var changeStr = JSON.stringify(changeObj);//设置值
+		var keyStr = changeObj.username+"*username";//设置键
+		document.cookie = keyStr+"="+changeStr+";path=/;";
+		$logined.hide();
+		$login_li.show();
+	});
 
 
 	//头部手机App的二维码显示隐藏
@@ -66,7 +114,7 @@ $(function(){
 		if(pos.top>440){
 			pos.top = 440;
 		}
-		console.log(pos.left,pos.top,e.offsetX,e.offsetY);
+		//console.log(pos.left,pos.top,e.offsetX,e.offsetY);
 		$bigerGlass.css({
 			"top":pos.top,
 			"left":pos.left
@@ -83,29 +131,29 @@ $(function(){
 	});
 
 	$overolay.on("mousemove",function(e){
-		var pos = {left:e.offsetX-100,top:e.offsetY-100};
-		var imgPos = {left:e.offsetX,top:e.offsetY};
+		var pos = {left:e.pageX-$imgBox.offset().left-100,top:e.pageY-$imgBox.offset().top-100};
 		var $img = $(".show_big").find("img");
 		if(pos.left<0){
 			pos.left = 0;
 		}
 		if(pos.left>280){
-			pos.left = 280
+			pos.left = 280;
 		}
 		if(pos.top<0){
 			pos.top = 0;
 		}
 		if(pos.top>440){
-			pos.top = 440
+			pos.top = 440;
 		}
 		$bigerGlass.css({
 			"top":pos.top,
 			"left":pos.left
 		});
+		//console.log(imgPos.top,imgPos.left);
 		$img.css({
 			"position":"absolute",
-			"top":-imgPos.top,
-			"left":-imgPos.left
+			"top":-(pos.top)*2,
+			"left":-(pos.left)*2
 		});
 	});
 
@@ -119,7 +167,7 @@ $(function(){
 	var $small_li = $small_imgBox.find("li");
 	$small_li.on("click",function(e){
 		var $newBigImgSrc = $(this).find("img").attr("src");
-		console.log($newBigImgSrc);
+		//console.log($newBigImgSrc);
 		$newBigImgSrc = $newBigImgSrc.replace("a.jpg",".jpg");
 		$imgBox.children("img").attr("src",$newBigImgSrc);
 		return false;
@@ -152,5 +200,64 @@ $(function(){
 		}else{
 			$count_num.html(count);
 		}
-	})
+	});
+
+
+	//点击购物车判断用户是否已经登录
+	$nav_right.on("click",function(){
+		if(changeObj==undefined){
+			alert("请先登录");
+			window.location.href="login.html";
+		}else if(changeObj.ynlogin==0){
+			alert("请先登录");
+			window.location.href="login.html";
+		}
+	});
+
+	//点击提交到购物车
+	$pro_button.on("click",function(){
+		var tittle = $(".pro_info_title").html();
+		var gName = $(".pro_name").html();
+		var unitPrice = $(".now_price").html();
+		var gCount = $count_num.html();
+		unitPrice = unitPrice.substring(1);
+		var gTotal = gCount*unitPrice;
+
+		if(changeObj==undefined){
+			alert("请先登录");
+			window.location.href="login.html";
+		}else if(changeObj.ynlogin==0){
+			alert("请先登录");
+			window.location.href="login.html";
+		}else{
+			if(changeObj.goods==null){
+			//增加商品属性(有标题，名字，单价，数量，总价)
+				changeObj.goods = {
+									"tittle":tittle,
+									"gName":gName,
+									"unitPrice":unitPrice,
+									"gCount":gCount,
+									"gTotal":gTotal
+								};
+			}else{
+				console.log(gCount,changeObj.goods.gCount);
+				changeObj.goods.gCount = parseInt(changeObj.goods.gCount) + parseInt(gCount);
+				changeObj.goods.gTotal = changeObj.goods.gTotal + gTotal;
+			}
+
+			//将商品的属性存入cookie
+			var changeStr = JSON.stringify(changeObj);//设置值
+			var keyStr = changeObj.username+"*username";//设置键
+			document.cookie = keyStr+"="+changeStr+";path=/;";
+			
+
+			
+			//改变导航栏的购物车的数值
+			$shopping_bag.find("a").html(changeObj.goods.gCount);
+
+			$price_total.html("￥"+changeObj.goods.gTotal);
+			return false;	
+		}
+	});
+
 });

@@ -16,9 +16,39 @@ h1,h2,h3,h4,h5,h6{font-weight:100;}
 .shoppingCar_tab{width:1000px;height:30px;border-bottom:2px solid #000;margin-bottom:20px;position:relative;}
 .shoppingCar_tab span{cursor:pointer;width:120px;height:30px;float:left;font-size:18px;text-align:center;line-height:30px;background:#fff;color:#000;}
 .shoppingCar_tab .selected_span{background:#000;color:#fff;}
+
+/*------------------------------shopping_list---------------------------------*/
+.shopping_list{width:1000px;height:auto;overflow:hidden;display:none;}
+.shopping_list_title{width:1000px;height:auto;overflow:hidden;border-bottom:2px solid #000;}
+.shopping_list_title li{float:left;width:120px;height:25px;text-align:center;font-size:14px;font-weight:700;}
+.shopping_list_title .list_first{width:400px;height:25px;text-align:left;}
+.shopping_list_content{width:1000px;height:auto;overflow:hidden;padding:10px 0 20px 20px;border:1px dotted #ccc;}
+
+.unbuy_pro{width:1000px;height:107px;overflow:hidden;padding-top:10px;}
+.unbuy_pro li{width:120px;height:107px;float:left;text-align:center;line-height:107px;}
+.unbuy_pro .unbuy_pro_left{width:380px;height:107px;float:left;}
+.unbuy_pro_img{float:left;width:78px;height:105px;margin-right:20px;border:1px solid #e7e7e7;}
+.unbuy_pro_txt{float:left;width:250px;height:105px;}
+.num_choose{width:110px;height:28px;border:1px solid #999;margin:0 auto;margin-top:38px;}
+.sub_num{width:28px;line-height:28px;height:28px;border-right:1px solid #999;cursor:pointer;float:left;}
+.pro_num{width:50px;line-height:28px;height:18px;padding:5px 0;float:left;border:none;text-align:center;}
+.add_num{width:28px;line-height:28px;height:28px;border-left:1px solid #999;cursor:pointer;float:left;}
+.list_last img{display:inline;cursor:pointer;}
+
 .nothing{width:100%;height:auto;font-size:14px;font-weight:700;text-align:center;}
 .onSell{width:1000px;height:auto;overflow:hidden;position:absolute;}
 .hopeList,.lost{width:1000px;height:auto;overflow:hidden;position:absolute;display:none;}
+
+/*------------------------------clean_list---------------------------------*/
+.clean_list{display:none;width:1000px;height:79px;padding-top:60px;padding-bottom:30px;border-bottom:1px solid #e7e7e7;margin-bottom:30px;}
+.clean_list_right{width:470px;height:79px;float:right;}
+.clean_list_right p{width:470px;margin-bottom:20px;font-size:18px;text-align:right;}
+.clean_list_right p span{font-size:18px;color:#f00;}
+.clean_list_bot{width:470px;height:35px;}
+.clean_list_bot .keep_shopping{text-align:center;line-height:33px;float:left;width:223px;height:33px;border:1px solid #000;margin-right:10px}
+.clean_list_bot .atOnce{cursor:pointer;background:#db2726;color:#fff;text-align:center;float:left;line-height:33px;border:none;width:225px;height:35px;}
+
+
 
 
 

@@ -28,6 +28,11 @@ $(function(){
 	var $autoIdenCode = $("#autoIdenCode");//验证码的输入框
 	var $idenCodeError = $("#idenCodeError");//再输入密码输入错误的提示
 	var $auto_login = $(".auto_login");//自动登录框
+	var $login_btn = $(".login_btn").find("a");//登录按钮
+
+	//从cookie中取到用户的数据(账号和密码)
+
+
 
 	//判断账号是否输入正确
 	function checkAccount(){
@@ -49,7 +54,7 @@ $(function(){
 	//判断密码是否输入正确
 	function checkPassword(){
 		var $passwordVal = $password.val();
-		if(/^\w\w{5,19}\w$/.test($passwordVal)){
+		if(/^\w\w{4,18}\w$/.test($passwordVal)){
 			$passError.hide();
 			return true;
 		}else{
@@ -108,12 +113,46 @@ $(function(){
 		}
 	});
 
-	/*//验证是否全部通过
-	$login_btn.on("click",function(e){
-		if(!(checkAccount()&&checkPassword()&&checkRePassword()&&checkIdenCode())){
+
+	function matchAccount(account,password){
+		var cookie = document.cookie;
+		//var reg = new RegExp(account+"\\*username=\\{.+\\}");
+		var reg = new RegExp(account+"\\*username=\\{.+\\}");
+		var accountArr = cookie.match(reg);
+		var accountZero = accountArr[0];
+		var cutI = accountZero.indexOf("=");
+		var newStr = accountZero.substring(cutI+1);
+		var changeObj = JSON.parse(newStr);
+		if(changeObj.username==account&&changeObj.password==password){
+			changeObj.ynlogin = 1;
+			var changeStr = JSON.stringify(changeObj);//设置值
+			var keyStr = account+"*username";//设置键
+			document.cookie = keyStr+"="+changeStr+";path=/;";
+			//console.log(document.cookie);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	//验证是否全部通过
+	$login_btn.on("click",function(e){//console.log(e.target);
+		var $accountVal = $account.val();
+		var $passwordVal = $password.val();
+		if(!(checkAccount()&&checkPassword()/*&&checkIdenCode()*/)){
+			console.log("d");
 			return false;
 		}else{
-			alert("注册成功");
-		}
-	});*/
+			var tof = matchAccount($accountVal,$passwordVal);
+			if(tof){
+				alert("登录成功");
+			}else{
+				alert("账户或密码输入不正确");
+				return false;
+			}	
+		}				
+	});
+	/*$(document).click(function(e){
+		console.log(e.target);
+	})*/
 });

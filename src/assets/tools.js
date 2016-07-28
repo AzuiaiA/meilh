@@ -423,10 +423,19 @@ function removeEvent(obj,eventType,funcName,isBubble){
 //值
 //有效期（整数），单位是天；
 //返回值：无
-function saveCookie(key,value,count){
+function saveCookieDate(key,value,count){
 	var exdate=new Date();
 	exdate.setDate(exdate.getDate()+count);//加5天
 	document.cookie = encodeURIComponent(key+"="+value+";expires="+exdate.toGMTString());
+}
+
+//添加cookie;
+//参数：
+//键
+//值
+//返回值：无
+function saveCookie(key,value){
+	document.cookie = encodeURIComponent(key+"="+value+"; ");
 }
 
 //获取cookie
@@ -436,7 +445,7 @@ function saveCookie(key,value,count){
 
 function getCookie(key){
 	//1、获取cookie字符串
-	var cookieStr = decodeURIComponent(document.cookie); "key=a; username=jzm; pass=123; _asdf"
+	var cookieStr = decodeURIComponent(document.cookie); //"key=a; username=jzm; pass=123; _asdf"
 	//2、转成数组
 	var cookieArr = cookieStr.split("; ");
 	//3、循环数组，从数组中找到对应的元素，对元素截取；

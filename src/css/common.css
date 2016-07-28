@@ -16,6 +16,7 @@ h1,h2,h3,h4,h5,h6{font-weight:100;}
 /*---------------------------header_left------------------------------------*/
 .header_left{height:30px;float:left;}
 .header_left li{float:left;margin-left:6px;text-align:center;line-height:30px;min-width:37px;}
+.logined{display:none;cursor:pointer;}
 .header_left img{float:left;margin-top:3px;}
 .header_left a{color:#000;}
 .header_left a:hover{color:#ce3b0e;}

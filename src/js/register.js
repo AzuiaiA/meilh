@@ -52,7 +52,7 @@ $(function(){
 	//判断密码是否输入正确
 	function checkPassword(){
 		var $passwordVal = $password.val();
-		if(/^\w\w{5,19}\w$/.test($passwordVal)){
+		if(/^\w\w{4,18}\w$/.test($passwordVal)){
 			$passError.hide();
 			return true;
 		}else{
@@ -117,9 +117,20 @@ $(function(){
 
 	//验证是否全部通过
 	$login_btn.on("click",function(e){
-		if(!(checkAccount()&&checkPassword()&&checkRePassword()&&checkIdenCode())){
+		if(!(checkAccount()&&checkPassword()&&checkRePassword()/*&&checkIdenCode()*/)){
 			return false;
 		}else{
+			var $accountVal = $account.val();
+			var $passwordVal = $password.val();
+			var master = {
+							"username":$accountVal,
+							"password":$passwordVal,
+							"ynlogin":0
+						};
+			var changeStr = JSON.stringify(master);//设置值
+			var keyStr = $accountVal+"*username";//设置键
+			document.cookie = keyStr+"="+changeStr+";path=/;";
+			console.log(document.cookie);
 			alert("注册成功");
 		}
 	});
@@ -136,4 +147,6 @@ $(function(){
 			$send_email_span.css("background","#000");
 		}
 	});
+
+
 });

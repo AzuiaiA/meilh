@@ -20,7 +20,7 @@ h1,h2,h3,h4,h5,h6{font-weight:100;}
 .product_view{width:480px;height:auto;float:left;}
 .imgBox{width:480px;height:640px;margin-bottom:5px;position:relative;}
 .overolay{position:absolute;width:480px;height:640px;z-index:1000;}
-.show_big{position:absolute;width:480px;height:640px;left:485px;top:0px;z-index:99;overflow:hidden;display:none;}
+.show_big{position:absolute;width:400px;height:400px;left:485px;overflow:hidden;top:0px;z-index:99;display:none;}
 .bigerGlass{background:rgba(0,0,0,0.4);width:200px;height:200px;position:absolute;overflow:hidden;display:none;}
 .small_imgBox{width:480px;height:107px;}
 .small_imgBox ul{width:450px;height:107px;margin:0 auto;}
