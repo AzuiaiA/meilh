@@ -139,7 +139,7 @@ $(function(){
 	$login_btn.on("click",function(e){//console.log(e.target);
 		var $accountVal = $account.val();
 		var $passwordVal = $password.val();
-		if(!(checkAccount()&&checkPassword()/*&&checkIdenCode()*/)){
+		if(!(checkAccount()&&checkPassword()&&checkIdenCode())){
 			console.log("d");
 			return false;
 		}else{

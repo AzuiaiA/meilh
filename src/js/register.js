@@ -117,7 +117,7 @@ $(function(){
 
 	//验证是否全部通过
 	$login_btn.on("click",function(e){
-		if(!(checkAccount()&&checkPassword()&&checkRePassword()/*&&checkIdenCode()*/)){
+		if(!(checkAccount()&&checkPassword()&&checkRePassword()&&checkIdenCode())){
 			return false;
 		}else{
 			var $accountVal = $account.val();

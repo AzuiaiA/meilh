@@ -230,6 +230,8 @@ $(function(){
 			alert("请先登录");
 			window.location.href="login.html";
 		}else{
+			alert("添加成功");
+			//若账户内无此商品
 			if(changeObj.goods==null){
 			//增加商品属性(有标题，名字，单价，数量，总价)
 				changeObj.goods = {
@@ -239,7 +241,7 @@ $(function(){
 									"gCount":gCount,
 									"gTotal":gTotal
 								};
-			}else{
+			}else{//若账户内有此商品
 				console.log(gCount,changeObj.goods.gCount);
 				changeObj.goods.gCount = parseInt(changeObj.goods.gCount) + parseInt(gCount);
 				changeObj.goods.gTotal = changeObj.goods.gTotal + gTotal;

@@ -57,10 +57,10 @@ $(function(){
 	$nav_right.on("click",function(){
 		if(changeObj==undefined){
 			alert("请先登录");
-			window.location.href="html/login.html";
+			window.location.href="login.html";
 		}else if(changeObj.ynlogin==0){
 			alert("请先登录");
-			window.location.href="html/login.html";
+			window.location.href="login.html";
 		}
 	});
 
